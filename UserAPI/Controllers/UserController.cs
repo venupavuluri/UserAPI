@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UserAPI.Model;
 
 namespace UserAPI.Controllers
 {
@@ -15,20 +16,23 @@ namespace UserAPI.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] PostUserRequestModel userRequest)
         {
+
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] PostUserRequestModel userRequest)
         {
+
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{emailAddress}")]
         public void Delete(string emailAddress)
         {
+
         }
     }
 }
