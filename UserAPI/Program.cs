@@ -5,11 +5,15 @@ using UserAPI.Filters;
 using UserAPI.Logic;
 using UserAPI.Model;
 using UserAPI.Repository;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//initialize serilog
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+               .ReadFrom.Configuration(hostingContext.Configuration));
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

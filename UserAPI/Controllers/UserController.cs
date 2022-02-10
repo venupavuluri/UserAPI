@@ -40,9 +40,20 @@ namespace UserAPI.Controllers
             if (string.IsNullOrEmpty(emailAddress))
                 return BadRequest("EmailAddress can't be null or empty");
 
-            var result = _userLogic.GetUserByEmail(emailAddress);            
-            //if no user exist, return 204
-            return result == null ? NoContent() : Ok(result);            
+            _logger.LogInformation("Requested email address {emailAddress}", emailAddress);
+
+            try
+            {
+                var result = _userLogic.GetUserByEmail(emailAddress);
+
+                //if user does not exist, return 204
+                return result == null ? NoContent() : Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error on GetUser with email address ", emailAddress);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>
@@ -56,9 +67,18 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
         public IActionResult Post([FromBody] PostUserRequestModel userRequest)
-        {            
-            var result = _userLogic.CreateUser(userRequest);
-            return Ok(result.ToString());
+        {
+            try
+            {
+                _logger.LogInformation("Create User Object {@userRequest}", userRequest);
+                var result = _userLogic.CreateUser(userRequest);
+                return Ok(result.ToString());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating user with request {@userRequest}", userRequest);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }        
 
         /// <summary>

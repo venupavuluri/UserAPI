@@ -1,0 +1,103 @@
+2022-02-09 21:49:55.079 -08:00 [INF] User profile is available. Using 'C:\Users\vpavul\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-09 21:49:55.801 -08:00 [INF] Now listening on: http://localhost:5083
+2022-02-09 21:49:55.803 -08:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-02-09 21:49:55.803 -08:00 [INF] Hosting environment: Development
+2022-02-09 21:49:55.803 -08:00 [INF] Content root path: C:\Users\vpavul\source\repos\UserAPI\UserAPI\
+2022-02-09 21:49:58.368 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/index.html - -
+2022-02-09 21:50:00.699 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/index.html - - - 200 - text/html;charset=utf-8 2380.2499ms
+2022-02-09 21:50:02.401 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - -
+2022-02-09 21:50:02.406 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - - - 200 11941 application/javascript;+charset=utf-8 4.9430ms
+2022-02-09 21:50:04.369 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - -
+2022-02-09 21:50:04.668 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 299.2045ms
+2022-02-09 21:51:09.490 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/api/User/string - -
+2022-02-09 21:51:09.503 -08:00 [INF] Executing endpoint 'UserAPI.Controllers.UserController.Get (UserAPI)'
+2022-02-09 21:51:09.526 -08:00 [INF] Route matched with {action = "Get", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Get(System.String) on controller UserAPI.Controllers.UserController (UserAPI).
+2022-02-09 21:51:09.551 -08:00 [INF] Requested email address string
+2022-02-09 21:51:09.573 -08:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2022-02-09 21:51:09.578 -08:00 [INF] Executed action UserAPI.Controllers.UserController.Get (UserAPI) in 47.8632ms
+2022-02-09 21:51:09.579 -08:00 [INF] Executed endpoint 'UserAPI.Controllers.UserController.Get (UserAPI)'
+2022-02-09 21:51:09.579 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/api/User/string - - - 204 - - 89.0516ms
+2022-02-09 21:51:13.570 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5083/api/User application/json 138
+2022-02-09 21:51:13.570 -08:00 [INF] Executing endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 21:51:13.571 -08:00 [INF] Route matched with {action = "Post", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(UserAPI.Model.PostUserRequestModel) on controller UserAPI.Controllers.UserController (UserAPI).
+2022-02-09 21:51:13.609 -08:00 [INF] Create User Object {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"s@mail.com","$type":"PostUserRequestModel"}
+2022-02-09 21:51:13.625 -08:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2022-02-09 21:51:13.626 -08:00 [INF] Executed action UserAPI.Controllers.UserController.Post (UserAPI) in 54.1595ms
+2022-02-09 21:51:13.626 -08:00 [INF] Executed endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 21:51:13.626 -08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5083/api/User application/json 138 - 200 - text/plain;+charset=utf-8 56.6992ms
+2022-02-09 22:09:36.590 -08:00 [INF] User profile is available. Using 'C:\Users\vpavul\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-09 22:09:37.145 -08:00 [INF] Now listening on: http://localhost:5083
+2022-02-09 22:09:37.146 -08:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-02-09 22:09:37.146 -08:00 [INF] Hosting environment: Development
+2022-02-09 22:09:37.146 -08:00 [INF] Content root path: C:\Users\vpavul\source\repos\UserAPI\UserAPI\
+2022-02-09 22:09:39.478 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/index.html - -
+2022-02-09 22:09:40.269 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/index.html - - - 200 - text/html;charset=utf-8 800.0697ms
+2022-02-09 22:09:40.371 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - -
+2022-02-09 22:09:40.399 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - - - 200 11941 application/javascript;+charset=utf-8 45.1651ms
+2022-02-09 22:09:40.866 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - -
+2022-02-09 22:09:41.211 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 345.2409ms
+2022-02-09 22:09:50.854 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5083/api/User application/json 137
+2022-02-09 22:09:50.865 -08:00 [INF] Executing endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:09:50.906 -08:00 [INF] Route matched with {action = "Post", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(UserAPI.Model.PostUserRequestModel) on controller UserAPI.Controllers.UserController (UserAPI).
+2022-02-09 22:09:51.003 -08:00 [INF] Create User Object {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"smail.com","$type":"PostUserRequestModel"}
+2022-02-09 22:09:51.391 -08:00 [ERR] Error creating user with request {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"smail.com","$type":"PostUserRequestModel"}
+System.Exception: Email address is not valid
+   at UserAPI.Logic.UserLogic.CreateUser(PostUserRequestModel user) in C:\Users\vpavul\source\repos\UserAPI\UserAPI\Logic\UserLogic.cs:line 23
+   at UserAPI.Controllers.UserController.Post(PostUserRequestModel userRequest) in C:\Users\vpavul\source\repos\UserAPI\UserAPI\Controllers\UserController.cs:line 65
+2022-02-09 22:09:51.447 -08:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-02-09 22:09:51.453 -08:00 [INF] Executed action UserAPI.Controllers.UserController.Post (UserAPI) in 538.9038ms
+2022-02-09 22:09:51.456 -08:00 [INF] Executed endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:09:51.456 -08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5083/api/User application/json 137 - 500 - text/plain;+charset=utf-8 601.9326ms
+2022-02-09 22:10:44.396 -08:00 [INF] User profile is available. Using 'C:\Users\vpavul\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-09 22:10:44.988 -08:00 [INF] Now listening on: http://localhost:5083
+2022-02-09 22:10:44.990 -08:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-02-09 22:10:44.991 -08:00 [INF] Hosting environment: Development
+2022-02-09 22:10:44.991 -08:00 [INF] Content root path: C:\Users\vpavul\source\repos\UserAPI\UserAPI\
+2022-02-09 22:10:50.324 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/index.html - -
+2022-02-09 22:10:50.339 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5083/api/User application/json 137
+2022-02-09 22:10:50.659 -08:00 [INF] Executing endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:10:50.713 -08:00 [INF] Route matched with {action = "Post", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(UserAPI.Model.PostUserRequestModel) on controller UserAPI.Controllers.UserController (UserAPI).
+2022-02-09 22:10:51.358 -08:00 [INF] Create User Object {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"smail.com","$type":"PostUserRequestModel"}
+2022-02-09 22:10:52.436 -08:00 [ERR] Error creating user with request {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"smail.com","$type":"PostUserRequestModel"}
+System.Exception: Email address is not valid
+   at UserAPI.Logic.UserLogic.CreateUser(PostUserRequestModel user) in C:\Users\vpavul\source\repos\UserAPI\UserAPI\Logic\UserLogic.cs:line 23
+   at UserAPI.Controllers.UserController.Post(PostUserRequestModel userRequest) in C:\Users\vpavul\source\repos\UserAPI\UserAPI\Controllers\UserController.cs:line 65
+2022-02-09 22:10:52.564 -08:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-02-09 22:10:52.573 -08:00 [INF] Executed action UserAPI.Controllers.UserController.Post (UserAPI) in 1852.7615ms
+2022-02-09 22:10:52.574 -08:00 [INF] Executed endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:10:52.576 -08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5083/api/User application/json 137 - 500 - text/plain;+charset=utf-8 2236.1847ms
+2022-02-09 22:10:52.654 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/index.html - - - 200 - text/html;charset=utf-8 2342.9852ms
+2022-02-09 22:10:52.739 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - -
+2022-02-09 22:10:52.754 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - - - 200 11941 application/javascript;+charset=utf-8 14.4115ms
+2022-02-09 22:10:53.439 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - -
+2022-02-09 22:10:53.795 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 356.0563ms
+2022-02-09 22:11:00.442 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5083/api/User application/json 137
+2022-02-09 22:11:00.442 -08:00 [INF] Executing endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:11:00.443 -08:00 [INF] Route matched with {action = "Post", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(UserAPI.Model.PostUserRequestModel) on controller UserAPI.Controllers.UserController (UserAPI).
+2022-02-09 22:11:00.447 -08:00 [INF] Create User Object {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"smail.com","$type":"PostUserRequestModel"}
+2022-02-09 22:11:00.599 -08:00 [ERR] Error creating user with request {"FirstName":"fn","MiddleName":"string","LastName":"string","PhoneNumber":"string","EmailAddress":"smail.com","$type":"PostUserRequestModel"}
+System.Exception: Email address is not valid
+   at UserAPI.Logic.UserLogic.CreateUser(PostUserRequestModel user) in C:\Users\vpavul\source\repos\UserAPI\UserAPI\Logic\UserLogic.cs:line 23
+   at UserAPI.Controllers.UserController.Post(PostUserRequestModel userRequest) in C:\Users\vpavul\source\repos\UserAPI\UserAPI\Controllers\UserController.cs:line 65
+2022-02-09 22:11:00.600 -08:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-02-09 22:11:00.600 -08:00 [INF] Executed action UserAPI.Controllers.UserController.Post (UserAPI) in 157.0282ms
+2022-02-09 22:11:00.600 -08:00 [INF] Executed endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:11:00.600 -08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5083/api/User application/json 137 - 500 - text/plain;+charset=utf-8 158.4452ms
+2022-02-09 22:17:37.422 -08:00 [INF] User profile is available. Using 'C:\Users\vpavul\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-09 22:17:37.915 -08:00 [INF] Now listening on: http://localhost:5083
+2022-02-09 22:17:37.917 -08:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-02-09 22:17:37.918 -08:00 [INF] Hosting environment: Development
+2022-02-09 22:17:37.918 -08:00 [INF] Content root path: C:\Users\vpavul\source\repos\UserAPI\UserAPI\
+2022-02-09 22:17:41.735 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/index.html - -
+2022-02-09 22:17:43.397 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/index.html - - - 200 - text/html;charset=utf-8 1696.9797ms
+2022-02-09 22:17:43.450 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - -
+2022-02-09 22:17:43.649 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/_framework/aspnetcore-browser-refresh.js - - - 200 11941 application/javascript;+charset=utf-8 199.1980ms
+2022-02-09 22:17:45.645 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - -
+2022-02-09 22:17:45.866 -08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5083/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 220.8899ms
+2022-02-09 22:17:52.883 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5083/api/User application/json 137
+2022-02-09 22:17:52.890 -08:00 [INF] Executing endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:17:52.918 -08:00 [INF] Route matched with {action = "Post", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(UserAPI.Model.PostUserRequestModel) on controller UserAPI.Controllers.UserController (UserAPI).
+2022-02-09 22:17:53.022 -08:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2022-02-09 22:17:53.037 -08:00 [INF] Executed action UserAPI.Controllers.UserController.Post (UserAPI) in 107.5841ms
+2022-02-09 22:17:53.039 -08:00 [INF] Executed endpoint 'UserAPI.Controllers.UserController.Post (UserAPI)'
+2022-02-09 22:17:53.040 -08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5083/api/User application/json 137 - 400 - application/problem+json;+charset=utf-8 157.0248ms

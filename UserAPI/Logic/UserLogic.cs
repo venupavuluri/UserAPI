@@ -10,6 +10,10 @@ namespace UserAPI.Logic
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public UserLogic(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -18,7 +22,7 @@ namespace UserAPI.Logic
         }
 
         public Guid CreateUser(PostUserRequestModel user)
-        {
+        {   
             return _userRepository.CreateUser(_mapper.Map<UserEntity>(user));
         }
 
