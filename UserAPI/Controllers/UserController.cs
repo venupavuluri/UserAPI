@@ -73,7 +73,8 @@ namespace UserAPI.Controllers
         [HttpDelete("{emailAddress}")]
         public IActionResult Delete(string emailAddress)
         {
-            return Ok();
+            var result = _userLogic.DeleteUser(emailAddress);
+            return Ok(result);
         }
     }
 }
