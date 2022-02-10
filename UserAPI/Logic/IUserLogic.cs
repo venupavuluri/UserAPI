@@ -1,4 +1,5 @@
 ﻿using UserAPI.Model;
+using UserAPI.Repository;
 
 namespace UserAPI.Logic
 {
