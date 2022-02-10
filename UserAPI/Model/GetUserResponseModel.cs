@@ -1,5 +1,6 @@
 ﻿namespace UserAPI.Model
 {
+    
     public class GetUserResponseModel
     {
         public string UserId { get; set; }  

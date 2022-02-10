@@ -6,8 +6,12 @@ namespace UserAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-    {
-        // GET api/<UserController>/5
+    {        
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserResponseModel))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{emailAddress}")]
         public string Get(string emailAddress)
         {
@@ -15,24 +19,24 @@ namespace UserAPI.Controllers
         }
 
         // POST api/<UserController>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public void Post([FromBody] PostUserRequestModel userRequest)
+        public IActionResult Post([FromBody] PostUserRequestModel userRequest)
         {
+            return Ok(Guid.Empty);
+        }        
 
-        }
-
-        // PUT api/<UserController>/5
-        [HttpPut]
-        public void Put([FromBody] PostUserRequestModel userRequest)
-        {
-
-        }
-
-        // DELETE api/<UserController>/5
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{emailAddress}")]
-        public void Delete(string emailAddress)
+        public IActionResult Delete(string emailAddress)
         {
-
+            return Ok();
         }
     }
 }
