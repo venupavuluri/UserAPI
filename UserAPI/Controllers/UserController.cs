@@ -35,7 +35,7 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{emailAddress}")]
-        public IActionResult Get(string emailAddress)
+        public IActionResult GetUser(string emailAddress)
         {
             if (string.IsNullOrEmpty(emailAddress))
                 return BadRequest("EmailAddress can't be null or empty");
