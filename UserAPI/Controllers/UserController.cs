@@ -67,12 +67,12 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public IActionResult Post([FromBody] PostUserRequestModel userRequest)
+        public async Task<IActionResult> Post([FromBody] PostUserRequestModel userRequest)
         {
             try
             {
                 _logger.LogInformation("Create User Object {@userRequest}", userRequest);
-                var result = _userLogic.CreateUser(userRequest);                 
+                var result = await _userLogic.CreateUser(userRequest);                 
                 return Ok(result.ToString());
             }            
             catch (Exception ex)
@@ -101,10 +101,27 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{emailAddress}")]
-        public IActionResult Delete(string emailAddress)
+        public async Task<IActionResult> Delete(string emailAddress)
         {
-            var result = _userLogic.DeleteUser(emailAddress);
-            return Ok(result);
+            try
+            {
+                var result = _userLogic.DeleteUser(emailAddress);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                var errorObject = new ErrorResponseModel();
+                _logger.LogError(ex, "User not deleted by email address {@emailAddress}", emailAddress);
+
+                if (ex.Message.Equals("UserNotExist"))
+                {
+                    errorObject = new ErrorResponseModel { ErrorMessage = "User not exist", StatusCode = StatusCodes.Status400BadRequest};
+                    return StatusCode(StatusCodes.Status400BadRequest, errorObject);
+                }
+
+                errorObject = new ErrorResponseModel { ErrorMessage = "Internal Server Error", StatusCode = StatusCodes.Status500InternalServerError };
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

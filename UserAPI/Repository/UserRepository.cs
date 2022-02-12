@@ -1,32 +1,28 @@
-﻿namespace UserAPI.Repository
+﻿using Cassandra.Mapping;
+
+namespace UserAPI.Repository
 {
     public class UserRepository : IUserRepository
     {
-        List<UserEntity> userEntities;
-
-        public UserRepository()
+        List<UserEntity> userEntities;                
+        readonly IServiceProvider _serviceProvider;
+        public UserRepository(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             userEntities = new List<UserEntity>();            
         }
 
         /// <summary>
-        /// upsert user (Create/Update)
+        /// Create user record, if user exist throw user already exist
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public Guid CreateUser(UserEntity user)
+        public async Task<Guid> CreateUser(UserEntity user)
         {
-            //check item existance
-            UserEntity? item = GetUser(user.Email);
-
-            //add item to the list
-            if (item == null)
-            {
-                userEntities.Add(user);
-                return user.Id;
-            }
-
-            throw new Exception("UserAlreadyExist");
+            var sessionFacade = _serviceProvider?.GetRequiredService<ICassandraService>();
+            var mapper = new Mapper(sessionFacade.GetSession());            
+            var appliedInfo = await mapper.InsertIfNotExistsAsync(user);
+            return appliedInfo.Applied ? user.Id : throw new Exception("UserAlreadyExist");
         }
               
         /// <summary>
@@ -34,14 +30,13 @@
         /// </summary>
         /// <param name="emailAddress"></param>
         /// <returns></returns>
-        public bool DeleteUser(string emailAddress)
+        public async Task<bool> DeleteUser(string emailAddress)
         {
-            UserEntity? item = GetUser(emailAddress);
-
-            if (item != null)
-                return userEntities.Remove(item);
-
-            return false;
+            var sessionFacade = _serviceProvider?.GetRequiredService<ICassandraService>();
+            var mapper = new Mapper(sessionFacade.GetSession());
+            var cql = @"delete from users where email = ?";
+            var appliedInfo = await mapper.DeleteIfAsync<UserEntity>(cql, emailAddress);
+            return appliedInfo.Applied ? true : throw new Exception("UserNotExist");
         }        
 
         /// <summary>
@@ -49,10 +44,9 @@
         /// </summary>
         /// <param name="emailAddress"></param>
         /// <returns></returns>
-        public UserEntity? GetUserByEmail(string emailAddress)
+        public async Task<IEnumerable<UserEntity>> GetUserByEmail(string emailAddress)
         {
-            UserEntity? item = GetUser(emailAddress);
-            return item;            
+            return await GetUser(emailAddress);            
         }
 
         #region HelperMethods
@@ -64,9 +58,12 @@
             item.Phone = user.Phone;
         }
 
-        private UserEntity? GetUser(string emailAddress)
+        private async Task<IEnumerable<UserEntity>> GetUser(string emailAddress)
         {
-            return userEntities.FirstOrDefault(item => item.Email.Equals(emailAddress.ToLower().Trim(), StringComparison.OrdinalIgnoreCase));
+            var sessionFacade = _serviceProvider?.GetRequiredService<ICassandraService>();
+            var mapper = new Mapper(sessionFacade.GetSession());
+            var cql = @"select * from users where email = ?;";
+            return await mapper.FetchAsync<UserEntity>(cql,emailAddress);
         }
         #endregion
     }

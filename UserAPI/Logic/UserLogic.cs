@@ -21,14 +21,14 @@ namespace UserAPI.Logic
             _mapper = _serviceProvider.GetRequiredService<IMapper>();
         }
 
-        public Guid CreateUser(PostUserRequestModel user)
+        public async Task<Guid> CreateUser(PostUserRequestModel user)
         {   
-            return _userRepository.CreateUser(_mapper.Map<UserEntity>(user));
+            return await _userRepository.CreateUser(_mapper.Map<UserEntity>(user));
         }
 
-        public bool DeleteUser(string emailAddress)
+        public async Task<bool> DeleteUser(string emailAddress)
         {
-            return _userRepository.DeleteUser(emailAddress);
+            return await _userRepository.DeleteUser(emailAddress);
         }
 
         public GetUserResponseModel GetUserByEmail(string emailAddress)

@@ -2,8 +2,8 @@
 {
     public interface IUserRepository
     {
-        public UserEntity? GetUserByEmail(string emailAddress);
-        public Guid CreateUser(UserEntity user);
-        public bool DeleteUser(string emailAddress);
+        public Task<IEnumerable<UserEntity>> GetUserByEmail(string emailAddress);
+        public Task<Guid> CreateUser(UserEntity user);
+        public Task<bool> DeleteUser(string emailAddress);
     }
 }

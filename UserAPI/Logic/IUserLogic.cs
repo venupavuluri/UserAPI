@@ -6,7 +6,7 @@ namespace UserAPI.Logic
     public interface IUserLogic
     {
         public GetUserResponseModel GetUserByEmail(string emailAddress);
-        public Guid CreateUser(PostUserRequestModel user);
-        public bool DeleteUser(string emailAddress);
+        public Task<Guid> CreateUser(PostUserRequestModel user);
+        public Task<bool> DeleteUser(string emailAddress);
     }
 }

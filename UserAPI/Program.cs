@@ -18,6 +18,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<ICassandraService, CassandraService>();
 builder.Services.AddTransient<IUserLogic, UserLogic>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
