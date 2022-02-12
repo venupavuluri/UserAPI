@@ -61,9 +61,10 @@ namespace UserAPI.Controllers
         /// </summary>
         /// <param name="userRequest"></param>
         /// <returns></returns>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
         public IActionResult Post([FromBody] PostUserRequestModel userRequest)
@@ -71,12 +72,21 @@ namespace UserAPI.Controllers
             try
             {
                 _logger.LogInformation("Create User Object {@userRequest}", userRequest);
-                var result = _userLogic.CreateUser(userRequest);
+                var result = _userLogic.CreateUser(userRequest);                 
                 return Ok(result.ToString());
-            }
+            }            
             catch (Exception ex)
             {
+                var errorObject = new ErrorResponseModel();
                 _logger.LogError(ex, "Error creating user with request {@userRequest}", userRequest);
+
+                if (ex.Message.Equals("UserAlreadyExist"))
+                {
+                    errorObject = new ErrorResponseModel { ErrorMessage = "Duplicate User", StatusCode = StatusCodes.Status409Conflict };
+                    return StatusCode(StatusCodes.Status409Conflict, errorObject);
+                }
+
+                errorObject = new ErrorResponseModel { ErrorMessage = "Internal Server Error", StatusCode = StatusCodes.Status500InternalServerError };
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }        

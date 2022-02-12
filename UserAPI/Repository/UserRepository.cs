@@ -26,10 +26,7 @@
                 return user.Id;
             }
 
-            //update item
-            UpdateUserItem(user, item);
-
-            return item.Id;
+            throw new Exception("UserAlreadyExist");
         }
               
         /// <summary>
