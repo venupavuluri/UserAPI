@@ -47,20 +47,18 @@ namespace UserAPI.Repository
         }
 
         public ISession GetAstraCloudSession()
-        {
+        {   
             if (_cluster == null || _session == null)
             {
                 var keyspace = "test";
                 string clientId = _configuration.GetSection("ConnectionStrings").GetSection("ClientId").Value;
                 string clientSecret = _configuration.GetSection("ConnectionStrings").GetSection("ClientSecret").Value;
                 _session = Cluster.Builder()
-                        .WithCloudSecureConnectionBundle(@".\Repository\AstraSecurePkg\secure-connect-sandbox.zip")
-                        //or if on linux .WithCloudSecureConnectionBundle(@"/PATH/TO/>>secure-connect-sandbox.zip")
+                        .WithCloudSecureConnectionBundle(@".\Repository\AstraSecurePkg\secure-connect-sandbox.zip") //Windows path
+                        //.WithCloudSecureConnectionBundle(@"./Repository/AstraSecurePkg/secure-connect-sandbox.zip") //Linux/Mac path
                         .WithCredentials(clientId, clientSecret)
                         .Build()
-                        .Connect();
-
-                _session = _cluster.Connect(keyspace);
+                        .Connect(keyspace:keyspace);
             }            
 
             return _session;
