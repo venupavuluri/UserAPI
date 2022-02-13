@@ -10,7 +10,7 @@ namespace UserAPI.Repository
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             var sessionFacade = _serviceProvider?.GetRequiredService<ICassandraService>();
-            _mapper = new Mapper(sessionFacade.GetSession());
+            _mapper = new Mapper(sessionFacade.GetAstraCloudSession());
         }
 
         /// <summary>

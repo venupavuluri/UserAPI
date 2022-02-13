@@ -18,13 +18,16 @@ namespace UserAPI.Repository
     {
         private Cluster _cluster;
         private ISession _session;
-
-        private const string USERNAME = "<<userName>>";
-        private const string PASSWORD = "<<password>>";
+        
         private int CASSANDRAPORT = 9042;
 
         private IEnumerable<ClusterHostNameResolution> Hosts;
-
+        
+        private readonly IConfiguration _configuration;
+        public CassandraService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public ISession GetSession()
         {
@@ -39,6 +42,26 @@ namespace UserAPI.Repository
             {
                 _session = _cluster.Connect(keyspace);
             }
+
+            return _session;
+        }
+
+        public ISession GetAstraCloudSession()
+        {
+            if (_cluster == null || _session == null)
+            {
+                var keyspace = "test";
+                string clientId = _configuration.GetSection("ConnectionStrings").GetSection("ClientId").Value;
+                string clientSecret = _configuration.GetSection("ConnectionStrings").GetSection("ClientSecret").Value;
+                _session = Cluster.Builder()
+                        .WithCloudSecureConnectionBundle(@".\Repository\AstraSecurePkg\secure-connect-sandbox.zip")
+                        //or if on linux .WithCloudSecureConnectionBundle(@"/PATH/TO/>>secure-connect-sandbox.zip")
+                        .WithCredentials(clientId, clientSecret)
+                        .Build()
+                        .Connect();
+
+                _session = _cluster.Connect(keyspace);
+            }            
 
             return _session;
         }
@@ -81,6 +104,9 @@ namespace UserAPI.Repository
 
                 return internalIpAddress.ToString();
             });
+
+            string USERNAME = _configuration.GetSection("ConnectionStrings").GetSection("Username").Value;
+            string PASSWORD = _configuration.GetSection("ConnectionStrings").GetSection("Password").Value;
 
             Cluster cluster = Cluster
                 .Builder()

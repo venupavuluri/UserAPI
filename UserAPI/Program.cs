@@ -6,6 +6,7 @@ using UserAPI.Logic;
 using UserAPI.Model;
 using UserAPI.Repository;
 using Serilog;
+using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,7 @@ var mapperConfig = new MapperConfiguration(cfg =>
         .ForMember(dest => dest.MName, opt => opt.MapFrom(src => src.LastName))
         .ForMember(dest => dest.LName, opt => opt.MapFrom(src => src.MiddleName))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.EmailAddress.ToLower().Trim()))
-        .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PhoneNumber));
+        .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => Regex.Replace(src.PhoneNumber, @"[^\d]", string.Empty)));
 
 });
 
@@ -68,3 +69,4 @@ app.MapControllers();
 app.Run();
 
 public partial class Program { }
+
