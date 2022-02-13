@@ -15,7 +15,7 @@ namespace UserAPI.ModelValidator
             
             RuleFor(model => model.LastName).MaximumLength(10);
             
-            RuleFor(model => model.PhoneNumber).MaximumLength(10);
+            RuleFor(model => model.PhoneNumber).MinimumLength(10).MaximumLength(13);
             
             RuleFor(model => model.EmailAddress)
                 .NotEmpty()

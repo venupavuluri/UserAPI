@@ -19,8 +19,8 @@ namespace UserAPI.Repository
         private Cluster _cluster;
         private ISession _session;
 
-        private const string USERNAME = "<<UserName>>";
-        private const string PASSWORD = "<<Password>>";
+        private const string USERNAME = "<<userName>>";
+        private const string PASSWORD = "<<password>>";
         private int CASSANDRAPORT = 9042;
 
         private IEnumerable<ClusterHostNameResolution> Hosts;
@@ -28,7 +28,7 @@ namespace UserAPI.Repository
 
         public ISession GetSession()
         {
-            var keyspace = "<<keyspace>>";
+            var keyspace = "microservices";
 
             if (_cluster == null)
             {

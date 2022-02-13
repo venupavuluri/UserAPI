@@ -18,14 +18,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ICassandraService, CassandraService>();
-builder.Services.AddTransient<IUserLogic, UserLogic>();
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddMvc(opt =>
+{
+    opt.Filters.Add(typeof(ValidatorActionFilter));
+}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Program>());
 
 //auto mapper initialization
-var mapperConfig = new MapperConfiguration(cfg => {
+var mapperConfig = new MapperConfiguration(cfg => 
+{   
+    
     cfg.CreateMap<UserEntity, GetUserResponseModel>()
-      .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+      .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))      
       .ForMember(dest => dest.Name, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.MName) ?
                                                                   string.Join(" ", src.FName, src.LName) : string.Join(" ", src.FName, src.MName, src.LName)))
       .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
@@ -38,15 +41,15 @@ var mapperConfig = new MapperConfiguration(cfg => {
         .ForMember(dest => dest.LName, opt => opt.MapFrom(src => src.MiddleName))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.EmailAddress.ToLower().Trim()))
         .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PhoneNumber));
+
 });
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddMvc(opt =>
-{
-    opt.Filters.Add(typeof(ValidatorActionFilter));
-}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Program>());
+builder.Services.AddSingleton<ICassandraService, CassandraService>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IUserLogic, UserLogic>();
 
 
 var app = builder.Build();

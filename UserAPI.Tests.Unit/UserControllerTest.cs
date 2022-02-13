@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
+using System.Threading.Tasks;
 using UserAPI.Controllers;
 using UserAPI.Logic;
 using UserAPI.Model;
@@ -35,26 +36,26 @@ namespace UserAPI.Tests.Unit
                 UserId = Guid.NewGuid().ToString() 
             };
 
-            _userLogicMock.Setup(res => res.GetUserByEmail(It.IsAny<string>())).Returns(() => { return mockGetUserResponseModel; });
-            _userLogicMock.Setup(res => res.CreateUser(It.IsAny<PostUserRequestModel>())).Returns(() => { return Guid.NewGuid(); });
+            _userLogicMock.Setup(res => res.GetUserByEmail(It.IsAny<string>())).ReturnsAsync(() => { return mockGetUserResponseModel; });
+            _userLogicMock.Setup(res => res.CreateUser(It.IsAny<PostUserRequestModel>())).ReturnsAsync(() => { return Guid.NewGuid(); });
             _serviceCollection.AddSingleton(_userLogicMock.Object);
         }
 
         [Fact]
-        public void GetUserTest()
+        public async void GetUserTest()
         {
             //initialize mock objects
             InitializeControllerMockData();
 
             var controller = new UserController(_serviceCollection.BuildServiceProvider(), _loggerMock.Object);
-            var actual = controller.GetUser("john.doe@email.com");
+            var actual = await controller.GetUserAsync("john.doe@email.com");
 
             Assert.Equal(200, ((OkObjectResult)actual).StatusCode);
 
         }
 
         [Fact]
-        public void CreateUserTest()
+        public async void CreateUserTest()
         {
             InitializeControllerMockData();
             
@@ -68,7 +69,7 @@ namespace UserAPI.Tests.Unit
             var controller = new UserController(_serviceCollection.BuildServiceProvider(), _loggerMock.Object);
             controller.ModelState.AddModelError("test", "test");
 
-            var actual = controller.Post(mockPostUserRequestModel);
+            var actual = await controller.CreateUserAsync(mockPostUserRequestModel);
 
             Assert.Equal(200, ((OkObjectResult)actual).StatusCode);
 

@@ -35,7 +35,7 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{emailAddress}")]
-        public IActionResult GetUser(string emailAddress)
+        public async Task<IActionResult> GetUserAsync(string emailAddress)
         {
             if (string.IsNullOrEmpty(emailAddress))
                 return BadRequest("EmailAddress can't be null or empty");
@@ -44,7 +44,7 @@ namespace UserAPI.Controllers
 
             try
             {
-                var result = _userLogic.GetUserByEmail(emailAddress);
+                var result = await _userLogic.GetUserByEmail(emailAddress);
 
                 //if user does not exist, return 204
                 return result == null ? NoContent() : Ok(result);
@@ -67,7 +67,7 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PostUserRequestModel userRequest)
+        public async Task<IActionResult> CreateUserAsync([FromBody] PostUserRequestModel userRequest)
         {
             try
             {
@@ -89,7 +89,42 @@ namespace UserAPI.Controllers
                 errorObject = new ErrorResponseModel { ErrorMessage = "Internal Server Error", StatusCode = StatusCodes.Status500InternalServerError };
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-        }        
+        }
+
+        /// <summary>
+        /// creates an user with given user request
+        /// </summary>
+        /// <param name="userRequest"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPut]
+        public async Task<IActionResult> UpdateUserAsync([FromBody] PostUserRequestModel userRequest)
+        {
+            try
+            {
+                _logger.LogInformation("Update User Object {@userRequest}", userRequest);
+                var result = await _userLogic.UpdateUser(userRequest);
+                return Ok(result.ToString());
+            }
+            catch (Exception ex)
+            {
+                var errorObject = new ErrorResponseModel();
+                _logger.LogError(ex, "Error creating user with request {@userRequest}", userRequest);
+
+                if (ex.Message.Equals("UpdateUserFailed"))
+                {
+                    errorObject = new ErrorResponseModel { ErrorMessage = "Update User Failed", StatusCode = StatusCodes.Status403Forbidden };
+                    return StatusCode(StatusCodes.Status403Forbidden, errorObject);
+                }
+
+                errorObject = new ErrorResponseModel { ErrorMessage = "Internal Server Error", StatusCode = StatusCodes.Status500InternalServerError };
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
         /// <summary>
         /// deletes user with given email address
@@ -101,11 +136,11 @@ namespace UserAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{emailAddress}")]
-        public async Task<IActionResult> Delete(string emailAddress)
+        public async Task<IActionResult> DeleteUserAsync(string emailAddress)
         {
             try
             {
-                var result = _userLogic.DeleteUser(emailAddress);
+                var result = await _userLogic.DeleteUser(emailAddress);
                 return Ok(result);
             }
             catch(Exception ex)

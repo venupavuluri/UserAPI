@@ -31,10 +31,15 @@ namespace UserAPI.Logic
             return await _userRepository.DeleteUser(emailAddress);
         }
 
-        public GetUserResponseModel GetUserByEmail(string emailAddress)
+        public async Task<GetUserResponseModel> GetUserByEmail(string emailAddress)
         {
-            var result = _userRepository.GetUserByEmail(emailAddress);
+            var result = await _userRepository.GetUserByEmail(emailAddress);
             return _mapper.Map<GetUserResponseModel>(result);
+        }
+
+        public async Task<bool> UpdateUser(PostUserRequestModel user)
+        {
+            return await _userRepository.UpdateUser(_mapper.Map<UserEntity>(user));
         }
     }
 }
