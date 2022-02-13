@@ -48,7 +48,7 @@ namespace UserAPI.Repository
 
         public ISession GetAstraCloudSession()
         {   
-            if (_cluster == null || _session == null)
+            if (_session == null)
             {
                 var keyspace = "test";
                 string clientId = _configuration.GetSection("ConnectionStrings").GetSection("ClientId").Value;
